@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Author: Lixipeng <lixipeng@hihuron.com>
+# Update: JmilkFan <fanguiju@hihuron.com>
 #
 # Description: Shell command used to generate sample openstack
 #              project which base on stable/liberty version.
@@ -25,7 +26,7 @@ PROJECT_NAME PROJET_PATH"
         -m|--manager-name: Add manager for this project\n
                            and set name as manager-name"
     echo -e "\033[0m"
-}
+} # 打印帮助手册
 
 # Check whether param value is empty,
 # If empty, exit with code 0
@@ -36,18 +37,26 @@ function check_empty() {
         echo "Param $check_param is empty."
         exit 0
     fi
-}
+} # 检查选项后的参数是否输入为空
 
 # Check whether param value is a folder,
 # If it is folder, exit with code 0
 function check_exist() {
     check_param=$1
     check_val=$2
-    if [ ! -d "$check_val" ]; then
-        echo "Path $check_param is exist."
-        exit 0
+    if [ ! -d "$check_val" ]; then  
+        echo "Path $check_param is not exist."
+        mkdir -p $check_val
+        if [ $? -eq 0 ]; then
+            echo "Alreay make $check_val for you."
+        elif
+            echo "Make $check_val failed. Pls check the permission or select a new path."
+            exit 0
     fi
-}
+} 
+# 检查 <new_priject_path> 是否已经存在
+# 若存在, 则继续
+# 若不存在, 则创建一个新的目录
 
 # Replace key value from file lists
 function replace_file() {
@@ -58,6 +67,15 @@ function replace_file() {
     do
         sed -i "s/$replace_old/$replace_new/g" $PROJECT_PATH/$item
     done
+} # 将文件内的字符串全局替换
+
+function check_same_name() {
+    $PROJECT_NAME = $1
+    $MANAGER_NAME = $2
+    if [ $PROJECT_NAME = $MANAGER_NAME ]; then
+    echo "Project name must be unequal with manager name."
+    exit 0
+fi
 }
 
 # Fetch arguments
@@ -72,6 +90,7 @@ elif [[ "$1" = "-m" || "$1" = "--manager-name" ]]; then
     PROJECT_PATH=$4
     check_empty "Project path" $PROJECT_PATH
     check_exist "Project path" $PROJECT_PATH
+    check_same_name $PROJECT_NAME $MANAGER_NAME
 elif [ "$1" = "" ]; then
     generator_help
     exit 0
@@ -82,26 +101,31 @@ else
     check_empty "Project path" $PROJECT_PATH
     check_exist "Project path" $PROJECT_PATH
 fi
+
+# PROJECT_PATH = "<new_project_path>/<new_project_name>"
 PROJECT_PATH="$PROJECT_PATH/$PROJECT_NAME"
 
 # Make project dir
 if [ -d $PROJECT_PATH ]; then
-    echo "$PROJECT_PATH is exist now!!!"
+    echo "$PROJECT_PATH is exist now!!! Pls select a new path"
     exit 0
-fi
+fi # 如果 PROJECT_PATH 已经存在了, 则退出
+
 mkdir $PROJECT_PATH
 
 # Copy template files to project dir
-cp -r $GENERATOR_PATH/template/* $PROJECT_PATH
-cp $GENERATOR_PATH/template/.gitignore $PROJECT_PATH
-cp $GENERATOR_PATH/template/.testr.conf $PROJECT_PATH
+cp -r `ls -A $GENERATOR_PATH/template` $PROJECT_PATH
 
 # Set first char of PROJECT_NAME upper
+# PRIJECT_NAME_C 首字母大写
 PROJECT_NAME_C=`echo $PROJECT_NAME|sed 's/^\(.\)/\U\1/g'`
+
 # Set all chars of PROJECT_NAME upper
+# PROJECT_NAME_A 全部字母大写
 PROJECT_NAME_A=`echo $PROJECT_NAME|tr '[:lower:]' '[:upper:]'`
 
 # Replace <project_name> with PROJECT_NAME
+# 将下面文件中的 <project_name> 全局替换成 PROJECT_NAME
 project_files="*.py
 tox.ini
 setup.cfg
