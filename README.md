@@ -2,30 +2,47 @@
 Sample generator for openstack new projects(Base on openstack stable/liberty version).
 
 ## Quick start
-Follow those steps to generate new projects:
+Following to generate a new projects:
 
-1. Get openstack-project-generator by command: `git clone https://github.com/hahaps/openstack-project-generator.git`.
-2. Go into openstack-project-generator by command: `cd openstack-project-generator`.
-3. Run command `./generate.sh -h` or `./generate.sh --help` for usage help.
-4. To generate a project with only `API` service, run `./generate.sh <project_name> <project_path>` such as `./generate.sh hahaps .`.
-5. To generate a project with `API` and `Manager` services, run `./generate.sh -m <manager_service_name> <project_name> <project_path>` such as `./generate.sh -m recover hahaps .`.
+1. Execute the command to get project of openstack-project-generator as below: 
+      git clone https://github.com/JmilkFan/openstack-project-generator.git
+
+2. Get into project-dir:
+      cd openstack-project-generator
+
+3. Usage HELP:
+      ./generate.sh -h[elp]
+
+4. Generate a new openstack-project with only `API` service:
+      ./generate.sh <new_project_name> <new_project_path>
+
+5. Generate a new openstack-project with `API` and `Manager` services:
+      ./generate.sh -m <new_manager_service_name> <new_project_name> <new_project_path>
+
+* NOTE
+1. The <new_project_name> and <new_manager_service_name> can't be contain a character '-'. EG: the-name is wrong
+2. Have to copy the .git directory from openstack-project-generator to <new_projecy_path>/<new_project_name> 
+       cp -pr openstack-project-generator/.git <new_project_path>/<new_project_name>
+
 
 ## Install and Run
-To Install new project generated with `openstack-project-generator` for development level:
+Install new openstack-project with `openstack-project-generator` for development level:
 
     sudo pip install -r <new_project_path>/requirements.txt -e <new_project_path>
 
-Follow tox command will be usful for testing and generate config.sample files:
-* To generate config.sample files: `tox -egenconfig`.
-* To run unit test: `tox -epy27`.
-* To run pep8 test: `tox -epep8`.
+Following tox commands will be usful for testing and generate config.sample files:
+* To generate config.sample files:
+      tox -egenconfig
+* To run unit test:
+      tox -epy27
+* To run pep8 test:
+      tox -epep8
 
-## Known bugs
-1. When generate a new project with only `API` services and it named hahap, then `hahap-all` will run failed.
 
 ## License
 
    Author: Li Xipeng <lixipeng@hihuron.com>
+           JmilkFan  <fanguiju@hihuron.com>
            From Beijing Huron Technology Co.Ltd
 
    Licensed under the Apache License, Version 2.0 (the "License");
