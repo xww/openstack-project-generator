@@ -19,9 +19,11 @@ Following to generate a new projects:
 5. Generate a new openstack-project with "API" and "Manager" services:<br>
 		`./generate.sh -m <new_manager_service_name> <new_project_name> <new_project_path>`
 
+
 * NOTE <br>
-1. The `<new_project_name>` and `<new_manager_service_name>` can't be contain a character '`-`'. EG: the-name is wrong<br>
-2. Have to copy the .git directory from openstack-project-generator to `<new_projecy_path>/<new_project_name>` <br>
+
+1. The `<new_project_name>` and `<new_manager_service_name>` can't be contain a character '`-`'. EG:the-name<br>
+2. Have to copy the .git directory from openstack-project-generator to `<new_projecy_path>/<new_project_name>`<br>
 		`cp -pr openstack-project-generator/.git <new_project_path>/<new_project_name>`
 
 
@@ -37,6 +39,9 @@ Following tox commands will be usful for testing and generate config.sample file
       `tox -epy27`
 * To run pep8 test:<br>
       `tox -epep8`
+
+##DEMO
+[CSDN Blog](http://blog.csdn.net/jmilk)
 
 
 ## License
