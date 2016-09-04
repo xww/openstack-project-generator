@@ -1,28 +1,30 @@
+#Catalogue
+[toc]
 # openstack-project-generator
 Sample generator for openstack new projects(Base on openstack stable/liberty version).
 
 ## Quick start
 Following to generate a new projects:
 
-1. Execute the command to get project of openstack-project-generator as below: 
-      git clone https://github.com/JmilkFan/openstack-project-generator.git
+1. Execute the command to get project of openstack-project-generator as below:<br>
+		git clone https://github.com/JmilkFan/openstack-project-generator.git
 
-2. Get into project-dir:
-      cd openstack-project-generator
+2. Get into project-dir:<br>
+		cd openstack-project-generator
 
-3. Usage HELP:
-      ./generate.sh -h[elp]
+3. Usage HELP:<br>
+		./generate.sh -h[elp]
 
-4. Generate a new openstack-project with only `API` service:
-      ./generate.sh <new_project_name> <new_project_path>
+4. Generate a new openstack-project with only `API` service:<br>
+		./generate.sh <new_project_name> <new_project_path>
 
-5. Generate a new openstack-project with `API` and `Manager` services:
-      ./generate.sh -m <new_manager_service_name> <new_project_name> <new_project_path>
+5. Generate a new openstack-project with `API` and `Manager` services:<br>
+		./generate.sh -m <new_manager_service_name> <new_project_name> <new_project_path>
 
-* NOTE
-1. The <new_project_name> and <new_manager_service_name> can't be contain a character '-'. EG: the-name is wrong
-2. Have to copy the .git directory from openstack-project-generator to <new_projecy_path>/<new_project_name> 
-       cp -pr openstack-project-generator/.git <new_project_path>/<new_project_name>
+`NOTE`
+1. The `<new_project_name>` and `<new_manager_service_name>` can't be contain a character `'-'`. EG: the-name is wrong
+2. Have to copy the .git directory from openstack-project-generator to `<new_projecy_path>/<new_project_name>` <br>
+		cp -pr openstack-project-generator/.git <new_project_path>/<new_project_name>
 
 
 ## Install and Run
